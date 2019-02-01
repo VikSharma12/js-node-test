@@ -11,13 +11,35 @@
   <h1> Welcome to the Exam </h1>
 
   <div class="row" style="margin-left: auto">
-      <form action="/" method="POST" class="col-sm-4">
+      <form class="col-sm-4">
         <div class="form-group col-md-12">
           <label>Input</label>
           <input type="text" class="form-control" name="name" placeholder="Any String">
         </div>
-        <button type="submit" class="btn btn-primary col-md-6">Submit</button>
+        <button id="mySubmit" onclick="isUuid()" class="btn btn-primary col-md-6">Submit</button>
       </form>
   </div>
+  <p id="valid"></p>
+  <script>
+    function isUuid() {
+      var strForm, text;
+
+      // Get the value of the input field 
+      strForm = document.getElementsByName("name")[0].value;
+      console.log(strForm);
+      // is uuid -- I believe this is the regex for uuid v4 (no time to double check want to get to other tasks)
+      if (strForm.match("[/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i")) {
+        text = "Input valid";
+        document.getElementById("mySubmit").style.visibility = "visible";
+      } else {
+        text = "Input invalid";
+        document.getElementById("mySubmit").style.visibility = "hidden";
+      }
+
+      document.getElementById("valid").innerHTML = text;
+      return false; //use this so page doesnt go back to default
+    };
+  </script>
+
 </body>
 </html>
