@@ -1,14 +1,16 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const app = express();
-const path = require('path');
-const router = express.Router();
+app.use(bodyParser.urlencoded({ extended: false }));
+var mysql = require('mysql');
 
-router.get('/',function(req,res){
-  res.sendFile(path.join(__dirname+'/index.html'));
+
+app.get('/', (request, response) =>  response.sendFile(`${__dirname}/index.html`)); //get html using express server
+
+app.post('/', (request, response) => { //on form submit use post request
+  console.log(request.body);
+  console.log(request.body.name);
+  response.sendFile(`${__dirname}/results.html`);
 });
 
-//add the router
-app.use('/', router);
-app.listen(process.env.port || 3000);
-
-console.log('Running at Port 3000');
+app.listen(5000, () => console.info('Application running on port 5000'));
